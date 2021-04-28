@@ -1,0 +1,13 @@
+"Tiles" textures set changelog
+
+v9:
+	* Fixed shaders parameters for glare effects.
+	* Added "tile6_2" texture.
+	* Added "no glare" version of textures configuration file.
+	* Added "tesseract" version of textures configuration files.
+
+v8:
+
+	* Updated "packages.cfg".
+	* Added "tile3_2","tile8","tile8_2" and "tile8_3" textures.
+
