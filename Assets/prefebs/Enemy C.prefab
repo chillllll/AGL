@@ -63,7 +63,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
+  m_Size: {x: 3.1, y: 3, z: 3}
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &2695513177355073044
 MonoBehaviour:
@@ -99,6 +99,8 @@ MonoBehaviour:
   bullet: {fileID: 7617663813400731882, guid: eecb9513a1eb6d44d8250a651c4ca7a8, type: 3}
   TargetDetectRadius: 0.5
   TargetDetectRange: 25
+  chaseDetectRadius: 10
+  chaseDetectRange: 20
   attackDelay: 0.5
   attackafterDelay: 0
   DamageTime: 1.2

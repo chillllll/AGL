@@ -5,30 +5,30 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject gameCam;
+    public GameObject gameCam; //메인카메라
     public Player player;
     public Boss boss;
     public int stage;
     public float playTime;
     public bool isBattle;
+    //적의 개체수
     public int enemyCntA;
     public int enemyCntB;
     public int enemyCntC;
     public int enemyCntD;
     public GameObject clearZone;
-    public GameObject GameOverSplash;
-    public GameObject GameClearSplash;
+    public GameObject GameOverSplash; //게임오버 ui
+    public GameObject GameClearSplash; //게임클리어 ui
+    //점수및 시간
     public Text curScoreTxt;
     public Text bestScoreTxt;
     public Text curTimeTxt;
     public Text bestTimeTxt;
-    //public Transform[] enemyZones;
-    //public GameObject[] enemies;
-    //public List<int> enemyList;
 
     public Text MaxscoreTxt;
     public Text scoreTxt;
     public Text stageTxt;
+    //플레이어 스테이터스
     public Text playTimeTxt;
     public Text playerHealth;
     public Text playerAmmo;
@@ -69,9 +69,10 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
-        scoreTxt.text = string.Format("{0:n0}", player.score); //string.Format("{0:n0})", player.score); 숫자에 ,찍음
+        scoreTxt.text = string.Format("{0:n0}", player.score); //string.Format("{0:n0})", player.score); 숫자에 천단위로 ,찍음
         stageTxt.text = "STAGE " + stage;
 
+        //플레이 시간
         int hour = (int)(playTime / 3600);
         int min = (int)((playTime - hour * 3600) / 60);
         int second = (int)(playTime % 60);
@@ -85,7 +86,8 @@ public class GameManager : MonoBehaviour
             playerAmmo.text = "- / " + player.ammo;
         else
             playerAmmo.text = player.equipWeapon.curAmmo + " / " + player.ammo;
-
+        
+        //무기 소지시 무기 스왑 아이콘 활성화
         if (player.hasWeapon[0])
             weaponIcon1.SetActive(true);
         if (player.hasWeapon[1])

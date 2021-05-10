@@ -14,18 +14,18 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "floor")
+        if (collision.gameObject.tag == "floor") //¹Ù´Ú¿¡ ´êÀ» ¶§
         {
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall") //º®¿¡ ´êÀ» ¶§
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //Àû¿¡°Ô ´êÀ» ¶§
     {
         if (other.gameObject.tag == "Enemy")
         {

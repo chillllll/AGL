@@ -29,11 +29,11 @@ public class Missile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //ÇÃ·¹ÀÌ¾î¿¡°Ô ºÎµúÈú½Ã
         {
             Destroy(gameObject);
         }
-        if (other.gameObject.tag == "Wall")
+        if (other.gameObject.tag == "Wall") //º®¿¡ ºÎµúÈú½Ã
         {
             Destroy(gameObject);
         }

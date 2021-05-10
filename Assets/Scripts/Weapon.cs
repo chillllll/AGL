@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public enum Type { Melee, Range };
+    public enum Type { Melee, Range }; //무기 타입(근거리,원거리)
     public Type type;
     public int damage;
-    public float AttackSpeed;
-    public float bulletSpeed;
-    public int maxAmmo;
-    public int curAmmo;
-    public float reloadTime = 1f;
-    public float KnockbackForce;
+    public float AttackSpeed; //공격속도
+    public float bulletSpeed; //총알 속도
+    public int maxAmmo; //최대탄창수
+    public int curAmmo; //현재탄창수
+    public float reloadTime = 1f; //재장전시간
+    public float KnockbackForce; //타격시 적을 미는 힘
 
-    public BoxCollider meleeArea;
+    public BoxCollider meleeArea; //타격범위 콜라이더
     public TrailRenderer trailEffect;
     public Transform bulletPosition;
-    public GameObject bullet;
+    public GameObject bullet; //총알 프리펩
     public Transform bulletCasePosition;
     public GameObject bulletCase;
     public AudioSource attackSound;

@@ -426,10 +426,15 @@ MonoBehaviour:
   isChase: 0
   isAttack: 0
   isDead: 0
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   meleeArea: {fileID: 8824209415737276445}
   bullet: {fileID: 0}
   TargetDetectRadius: 1.5
   TargetDetectRange: 3
+  chaseDetectRadius: 10
+  chaseDetectRange: 20
   attackDelay: 0.5
   attackafterDelay: 0
   DamageTime: 1.2

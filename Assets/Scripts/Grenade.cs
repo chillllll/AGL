@@ -8,11 +8,11 @@ public class Grenade : MonoBehaviour
     public GameObject meshObj;
     public GameObject effctObj;
     public Rigidbody rigid;
-    public float explodeTime;
-    public float exRadius;
+    public float explodeTime; //폭발지연시간
+    public float exRadius; //폭발범위
     //public int damage;
-    public GameObject exColider;
-    public float destroytime;
+    public GameObject exColider; //폭발데미지를 줄 콜라이더
+    public float destroytime; 
 
     
     // Start is called before the first frame update

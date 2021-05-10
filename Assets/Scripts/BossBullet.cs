@@ -19,6 +19,6 @@ public class BossBullet : Bullet
     // Update is called once per frame
     void Update()
     {
-        nav.SetDestination(target.position);
+        nav.SetDestination(target.position); //Å¸°Ù ¼³Á¤
     }
 }

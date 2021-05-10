@@ -5,28 +5,30 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    public enum Type { A, B, C, D };
+    public enum Type { A, B, C, D }; //적 종류
     public Type enemyType;
-    public int maxHealth;
-    public int curHealth;
-    public float reactforce;
+    public int maxHealth; //최대체력
+    public int curHealth; //현재체력
+    public float reactforce; //피격시 밀리는 정도
 
-    public int score;
-    public GameObject[] coins;
-    public int coinSize;
+    public int score; //잡을 시 주는 점수
+    public GameObject[] coins; //드랍하는 아이템
+    public int coinSize; //드랍하는 아이템 종류 갯수
 
-    public Transform target;
-    public GameManager manager;
+    public Transform target; //타겟(플레이어)
+    public GameManager manager; //게임매니저
     public bool isChase;
     public bool isAttack;
     public bool isDead;
-    public UnityEvent deathEvent;
+    public UnityEvent deathEvent; //죽을 때 이벤트
 
-    public BoxCollider meleeArea;
+    public BoxCollider meleeArea; //공격 콜라이더
     public GameObject bullet;
 
-    public float TargetDetectRadius;
-    public float TargetDetectRange;
+    public float TargetDetectRadius; //플레이어를 감지하여 공격을 수행하는 범위
+    public float TargetDetectRange; 
+    public float chaseDetectRadius; //플레이어를 감지하여 쫒아가는 범위
+    public float chaseDetectRange;
     public float attackDelay;
     public float attackafterDelay;
     public float DamageTime;
@@ -52,15 +54,17 @@ public class Enemy : MonoBehaviour
 
         nav.enabled = true;
         anim = GetComponentInChildren<Animator>();
-        if (enemyType != Type.D)
-            ChaseStart();
+        /*if (enemyType != Type.D)
+            ChaseStart();*/
     }
+    
+    //추적시작
     void ChaseStart()
     {
         isChase = true;
         anim.SetBool("isWalk", true);
     }
-    // Update is called once per frame
+    
     void Update()
     {
         if (nav.enabled && enemyType != Type.D)
@@ -74,8 +78,8 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead&& enemyType != Type.D)
         {
-            float targetRadius = TargetDetectRadius;
-            float targetRange = TargetDetectRange;
+            float detectRadius = TargetDetectRadius; //레이캐스트 반지름
+            float detectRange = TargetDetectRange;
 
             //switch (enemyType)
             //{
@@ -88,12 +92,40 @@ public class Enemy : MonoBehaviour
             //}
 
             RaycastHit[] rayHits = Physics.SphereCastAll(transform.position,
-                targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
+                detectRadius, transform.forward, detectRange, LayerMask.GetMask("Player")); //구체형 레이캐스트로 플레이어 레이어 검출
+            
+            if (rayHits.Length > 0 && !isAttack) //레이캐스트에 플레이어 검출시
+            {
+                isChase = false;
+                StartCoroutine(Attack());
+                
+            }
+        }
+    }
+    void Detecting()
+    {
+        if (!isDead && enemyType != Type.D)
+        {
+            float targetRadius = chaseDetectRadius; //레이캐스트 반지름
+            float targetRange = chaseDetectRange;
 
-            if (rayHits.Length > 0 && !isAttack)
+            //switch (enemyType)
+            //{
+            //    case Type.A:
+            //        break;
+            //    case Type.B:
+            //        break;
+            //    case Type.C:
+            //        break;
+            //}
+
+            RaycastHit[] rayHits = Physics.SphereCastAll(transform.position,
+                targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player")); //구체형 레이캐스트로 플레이어 레이어 검출
+
+            if (rayHits.Length > 0 && !isChase &&!isAttack) //레이캐스트에 플레이어 검출시
             {
 
-                StartCoroutine(Attack());
+                ChaseStart();
             }
         }
     }
@@ -105,7 +137,7 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isAttack", true);
         //딜레이 후 데미지영역 활성화
 
-        switch (enemyType)
+        switch (enemyType) //타입별 공격패턴
         {
             case Type.A:
                 attackSound.Play();
@@ -147,7 +179,7 @@ public class Enemy : MonoBehaviour
         anim.SetBool("isAttack", false);
 
     }
-    void FreezeVelocity()
+    void FreezeVelocity() //밀림 제어
     {
         if (isChase)
         {
@@ -157,20 +189,21 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        Detecting();
         Targeting();
         FreezeVelocity();
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Melee")
+        if (other.tag == "Melee") //근접공격에 피격시
         {
-            Weapon weapon = other.GetComponent<Weapon>();
-            curHealth -= weapon.damage;
-            Vector3 reactVec = transform.position - other.transform.position;
-            reactforce = weapon.KnockbackForce;
-            StartCoroutine(OnDamage(reactVec));
+            Weapon weapon = other.GetComponent<Weapon>(); //맞은 무기 검출
+            curHealth -= weapon.damage; //현재 체력 감소
+            Vector3 reactVec = transform.position - other.transform.position; //맞은 무기의 미는 힘을 가져옴
+            reactforce = weapon.KnockbackForce; //맞은 무기의 미는 힘=적이 밀리는 힘
+            StartCoroutine(OnDamage(reactVec)); //피격시 밀리는 코루틴 실행
         }
-        else if (other.tag == "Bullet")
+        else if (other.tag == "Bullet") //원거리공격에 피격시
         {
             Bullet bullet = other.GetComponent<Bullet>();
             curHealth -= bullet.damage;
@@ -178,7 +211,7 @@ public class Enemy : MonoBehaviour
             reactforce = bullet.KnockbackForce;
             StartCoroutine(OnDamage(reactVec));
         }
-        else if (other.tag == "DamageZone")
+        else if (other.tag == "DamageZone") //폭발에 피격시
         {
             ExplosionDamage explosionDamage = other.GetComponent<ExplosionDamage>();
             curHealth -= explosionDamage.damage;
@@ -188,29 +221,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator OnDamage(Vector3 reactVec)
+    IEnumerator OnDamage(Vector3 reactVec) //피격시
     {
         damagedSound.Play();
         foreach (MeshRenderer mesh in meshs)
-            mesh.material.color = Color.red;
+            mesh.material.color = Color.red; //바디를 빨간색으로 바꿈
         yield return new WaitForSeconds(0.1f);
 
         if (curHealth > 0)
         {
             foreach (MeshRenderer mesh in meshs)
-                mesh.material.color = Color.white;
+                mesh.material.color = Color.white; //바디를 다시 원래 색으로 바꿈
         }
         else //체력이 0이하일 때
         {
             foreach (MeshRenderer mesh in meshs)
-                mesh.material.color = Color.gray;
-            gameObject.layer = 12;
+                mesh.material.color = Color.gray;  //바디를 회색으로 바꿈
+            gameObject.layer = 12; //개체 레이어를 enemyDead레이어로 바꿈
             isDead = true;
             isChase = false;
             nav.enabled = false;
-            anim.SetTrigger("doDie");
+            anim.SetTrigger("doDie"); //죽는 애니메이션 수행
             Player player = target.GetComponent<Player>();
-            player.score += score;
+            player.score += score; //플레이어 스코어 증가
             int rancoin = Random.Range(0, coinSize);
             Instantiate(coins[rancoin], transform.position, Quaternion.identity); //Quaternion.identity  ->회전없음
             //보스면 코인 10개 뿌리기
@@ -226,7 +259,7 @@ public class Enemy : MonoBehaviour
                 }
             }
 
-            switch (enemyType)
+            switch (enemyType) //게임매니저에서 적 카운트 내리기
             {
                 case Type.A:
                     manager.enemyCntA--;
@@ -240,11 +273,11 @@ public class Enemy : MonoBehaviour
             }
             reactVec = reactVec.normalized;
             reactVec += Vector3.up;
-            rigid.AddForce(reactVec * reactforce, ForceMode.Impulse);
+            rigid.AddForce(reactVec * reactforce, ForceMode.Impulse); //피격 반대방향으로 reactforce만큼 밀려남
             if (deathEvent != null)
                 deathEvent.Invoke();
             
-            Destroy(gameObject, 4);
+            Destroy(gameObject, 4); //4초후 destory
         }
     }
 

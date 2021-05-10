@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Boss : Enemy
+public class Boss : Enemy //Enemy상속
 {
     public GameObject missile;
     public Transform missilePortA;
@@ -45,10 +45,10 @@ public class Boss : Enemy
             transform.LookAt(target.position + lookVec);
         }
         else
-            nav.SetDestination(tauntVec);
+            nav.SetDestination(tauntVec); //점프공격할때 타겟셋팅
     }
 
-    IEnumerator Think()
+    IEnumerator Think() // 랜덤행동AI
     {
         yield return new WaitForSeconds(aiDecisionTime);
         int ranAction = Random.Range(0, 5);
@@ -69,40 +69,39 @@ public class Boss : Enemy
         }
     }
 
-    IEnumerator Missileshot()
+    IEnumerator Missileshot() //미사일
     {
         anim.SetTrigger("doShot");
         yield return new WaitForSeconds(0.2f);
         missileSound.Play();
-        GameObject instantMissileA = Instantiate(missile, missilePortA.position, missilePortA.rotation);
+        GameObject instantMissileA = Instantiate(missile, missilePortA.position, missilePortA.rotation); //미사일생성
         BossBullet bossBulletA = instantMissileA.GetComponent<BossBullet>();
-        bossBulletA.target = target;
+        bossBulletA.target = target; //미사일타겟설정
 
         anim.SetTrigger("doShot");
         yield return new WaitForSeconds(0.3f);
         missileSound.Play();
-        GameObject instantMissileB = Instantiate(missile, missilePortB.position, missilePortA.rotation);
+        GameObject instantMissileB = Instantiate(missile, missilePortB.position, missilePortB.rotation);//미사일생성
         BossBullet bossBulletB = instantMissileB.GetComponent<BossBullet>();
-        bossBulletB.target = target;
+        bossBulletB.target = target; //미사일타겟설정
 
         yield return new WaitForSeconds(2f);
         StartCoroutine(Think());
     }
-    IEnumerator RockShot()
+    IEnumerator RockShot() //돌굴리기
     {
         rockSound.Play();
         isLook = false;
         anim.SetTrigger("doBigShot");
-        //Instantiate(bullet, transform.position, transform.rotation);
         Instantiate(bullet, rockTrans.position, transform.rotation);
 
         yield return new WaitForSeconds(3f);
         isLook = true;
         StartCoroutine(Think());
     }
-    IEnumerator Taunt()
+    IEnumerator Taunt() //점프공격
     {
-        tauntVec = target.position + lookVec;
+        tauntVec = target.position + lookVec; //타겟의 진행방향을 바라봄
 
         isLook = false;
         nav.isStopped = false;

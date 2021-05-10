@@ -19,11 +19,11 @@ public class Shop : MonoBehaviour
    
 
 
-    public void Enter(Player player)
+    public void Enter(Player player) //플레이어가 상호작용시
     {
         enterPlayer = player;
         //uiGroup.anchoredPosition = Vector3.zero;
-        shopui.SetActive (true);
+        shopui.SetActive (true); //상점ui 띄우기
     }
 
     public void Exit()
@@ -34,7 +34,7 @@ public class Shop : MonoBehaviour
 
     }
 
-    public void Buy(int index)
+    public void Buy(int index) //아이템 구입시
     {
         int price = itemPrice[index];
         if(price > enterPlayer.coin)
@@ -44,9 +44,9 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        enterPlayer.coin -= price;
-        Vector3 ranvec = Vector3.right * Random.Range(-3, 3) + Vector3.forward * Random.Range(-3, 3);
-        Instantiate(itemObj[index], itemPosition[index].position + ranvec, itemPosition[index].rotation);
+        enterPlayer.coin -= price; //가격만큼 코인 감소
+        Vector3 ranvec = Vector3.right * Random.Range(-3, 3) + Vector3.forward * Random.Range(-3, 3); 
+        Instantiate(itemObj[index], itemPosition[index].position + ranvec, itemPosition[index].rotation);  //주변에 아이템 생성
 
     }
 

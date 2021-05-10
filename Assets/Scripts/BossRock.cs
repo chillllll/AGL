@@ -31,10 +31,10 @@ public class BossRock : MonoBehaviour
     {
         while (!isShoot)
         {
-            angularPower += plusedAngularPower;
-            scaleValue += plusedScaleValue;
-            transform.localScale = Vector3.one * scaleValue;
-            rigid.AddTorque(transform.right * angularPower, ForceMode.Acceleration);
+            angularPower += plusedAngularPower; //회전속도 증가
+            scaleValue += plusedScaleValue; //크기 증가
+            transform.localScale = Vector3.one * scaleValue; //크기 증가값 적용
+            rigid.AddTorque(transform.right * angularPower, ForceMode.Acceleration);//회전속도 증가값 적용
             yield return null;
         }
         
@@ -44,14 +44,14 @@ public class BossRock : MonoBehaviour
     {
         
 
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall") //벽에 부딪힐 때
         {
             Destroy(gameObject);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player") //플레이어에 부딪힐 때
         {
             Destroy(gameObject);
         }
