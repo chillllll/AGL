@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6202495627999283692}
   - component: {fileID: -1363501010434352215}
   m_Layer: 0
-  m_Name: Weapon SubMachineGun
+  m_Name: Item SubMachineGun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

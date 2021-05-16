@@ -46,14 +46,14 @@ public class BossRock : MonoBehaviour
 
         if (collision.gameObject.tag == "Wall") //º®¿¡ ºÎµúÈú ¶§
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") //ÇÃ·¹ÀÌ¾î¿¡ ºÎµúÈú ¶§
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -62,4 +62,6 @@ public class BossRock : MonoBehaviour
     {
 
     }
+
+
 }

@@ -104,10 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b5252f949ef2f499052aeac9a6d881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angularPower: 2
-  plusedAngularPower: 5
+  angularPower: 1
+  plusedAngularPower: 2
   scaleValue: 0.1
-  plusedScaleValue: 0.038
+  plusedScaleValue: 0.02
   waitTime: 1.5
 --- !u!1 &4436029417261584126
 GameObject:

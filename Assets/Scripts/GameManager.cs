@@ -46,13 +46,13 @@ public class GameManager : MonoBehaviour
     public RectTransform bossHealthGruop;
     public RectTransform bossHealthBar;
 
-
+    public int targetFrame;
     void Awake()
     {
         //enemyList = new List<int>();
         //MaxscoreTxt.text = string.Format("{0,n0}", PlayerPrefs.GetInt("MaxScore"));
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = targetFrame;
 
     }
 

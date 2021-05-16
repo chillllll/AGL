@@ -16,10 +16,13 @@ public class Weapon : MonoBehaviour
     public BoxCollider meleeArea; //Å¸°Ý¹üÀ§ ÄÝ¶óÀÌ´õ
     public TrailRenderer trailEffect;
     public Transform bulletPosition;
-    public GameObject bullet; //ÃÑ¾Ë ÇÁ¸®Æé
+    //public GameObject bullet; //ÃÑ¾Ë ÇÁ¸®Æé
     public Transform bulletCasePosition;
-    public GameObject bulletCase;
+    //public GameObject bulletCase;
     public AudioSource attackSound;
+
+    public ObjectPooler objectPooler;
+    public ObjectPooler objectPoolerBulletCase;
 
     public void Use()
     {
@@ -57,14 +60,23 @@ public class Weapon : MonoBehaviour
     {
         //1. ÃÑ¾Ë ¹ß»ç
         attackSound.Play();
-        GameObject instantBullet = Instantiate(bullet, bulletPosition.position, bulletPosition.rotation);
+        //GameObject instantBullet = Instantiate(bullet, bulletPosition.position, bulletPosition.rotation);
+        GameObject instantBullet = objectPooler.MakeObj();
+        //GameObject instantBullet = objectPooler.GetObj();
+        instantBullet.transform.position = bulletPosition.position;
+        instantBullet.transform.rotation = bulletPosition.rotation;
         Rigidbody bulletRigid = instantBullet.GetComponent<Rigidbody>();
+        
 
         bulletRigid.velocity = bulletPosition.forward * bulletSpeed;
         yield return null;
         //2. ÅºÇÇ ¹èÃâ
-        GameObject instantCase = Instantiate(bulletCase, bulletCasePosition.position, bulletCasePosition.rotation);
-        Rigidbody bulletCaseRigid = instantBullet.GetComponent<Rigidbody>();
+        //GameObject instantCase = Instantiate(bulletCase, bulletCasePosition.position, bulletCasePosition.rotation);
+        GameObject instantCase = objectPoolerBulletCase.MakeObj();
+        //GameObject instantCase = objectPooler.GetObj();
+        instantCase.transform.position = bulletCasePosition.position;
+        instantCase.transform.rotation = bulletCasePosition.rotation;
+        Rigidbody bulletCaseRigid = instantCase.GetComponent<Rigidbody>();
         Vector3 caseVec = bulletCasePosition.forward * Random.Range(2, 3) + Vector3.up;
         bulletCaseRigid.AddForce(caseVec, ForceMode.Impulse);
         bulletCaseRigid.AddTorque(Vector3.up * 10, ForceMode.Impulse);

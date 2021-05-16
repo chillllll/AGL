@@ -10,10 +10,15 @@ public class Boss : Enemy //Enemy상속
     public Transform missilePortB;
     public Transform rockTrans;
     public float aiDecisionTime;
+    
 
     public AudioSource rockSound;
     public AudioSource missileSound;
     public AudioSource tauntSound;
+
+    public ObjectPooler missilePoolA;
+    public ObjectPooler missilePoolB;
+
     Vector3 lookVec;
     Vector3 tauntVec;
     public bool isLook;
@@ -26,6 +31,7 @@ public class Boss : Enemy //Enemy상속
         anim = GetComponentInChildren<Animator>();
         nav.isStopped = true;
         StartCoroutine(Think());
+        
     }
 
     
@@ -74,14 +80,20 @@ public class Boss : Enemy //Enemy상속
         anim.SetTrigger("doShot");
         yield return new WaitForSeconds(0.2f);
         missileSound.Play();
-        GameObject instantMissileA = Instantiate(missile, missilePortA.position, missilePortA.rotation); //미사일생성
+        //GameObject instantMissileA = Instantiate(missile, missilePortA.position, missilePortA.rotation); //미사일생성
+        GameObject instantMissileA = missilePoolA.MakeObj(); //풀링한 오브젝트 활성화
+        instantMissileA.transform.position = missilePortA.position;
+        instantMissileA.transform.rotation = missilePortA.rotation;
         BossBullet bossBulletA = instantMissileA.GetComponent<BossBullet>();
         bossBulletA.target = target; //미사일타겟설정
 
         anim.SetTrigger("doShot");
         yield return new WaitForSeconds(0.3f);
         missileSound.Play();
-        GameObject instantMissileB = Instantiate(missile, missilePortB.position, missilePortB.rotation);//미사일생성
+        //GameObject instantMissileB = Instantiate(missile, missilePortB.position, missilePortB.rotation);//미사일생성
+        GameObject instantMissileB = missilePoolB.MakeObj(); //풀링한 오브젝트 활성화
+        instantMissileB.transform.position = missilePortB.position;
+        instantMissileB.transform.rotation = missilePortB.rotation;
         BossBullet bossBulletB = instantMissileB.GetComponent<BossBullet>();
         bossBulletB.target = target; //미사일타겟설정
 
@@ -94,6 +106,9 @@ public class Boss : Enemy //Enemy상속
         isLook = false;
         anim.SetTrigger("doBigShot");
         Instantiate(bullet, rockTrans.position, transform.rotation);
+        //GameObject instantBullet = objectPooler.MakeObj(); //풀링한 오브젝트 활성화
+        //instantBullet.transform.position = rockTrans.position;
+        //instantBullet.transform.rotation = transform.rotation;
 
         yield return new WaitForSeconds(3f);
         isLook = true;
@@ -114,13 +129,16 @@ public class Boss : Enemy //Enemy상속
 
         yield return new WaitForSeconds(0.5f);
         meleeArea.enabled = false;
-
+        
         yield return new WaitForSeconds(1f);
         isLook = true;
         nav.isStopped = true;
         boxCollider.enabled = true;
+        rigid.velocity = Vector3.zero;
+
 
         StartCoroutine(Think());
     }
    
+
 }

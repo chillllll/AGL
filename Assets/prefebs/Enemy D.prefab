@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 193369514467525418}
   - component: {fileID: 193369514467525419}
   m_Layer: 13
-  m_Name: MeleeArea
+  m_Name: BossMeleeArea
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193369514669638173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.703, y: 2.17, z: 3.403}
+  m_LocalPosition: {x: 1.703, y: 2.17, z: 2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8939974835675079927}
@@ -113,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193369516120651013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.702, y: 2.17, z: 3.403}
+  m_LocalPosition: {x: -1.702, y: 2.17, z: 2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8939974835675079927}
@@ -153,6 +153,52 @@ Transform:
   m_Father: {fileID: 8939974835675079927}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1928643718364371490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 388109560319064456}
+  - component: {fileID: 4170244423312250534}
+  m_Layer: 11
+  m_Name: missileBPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &388109560319064456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928643718364371490}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8939974835675079927}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4170244423312250534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928643718364371490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f5f39952530b4489c689faa05de558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjPrefab: {fileID: 2912268860614299081, guid: a39724fb02913db4284882a4b606eb6f,
+    type: 3}
+  poolQuan: 5
 --- !u!1 &2121210589333831451
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +472,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &4380656257442133366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6523050166798948954}
+  - component: {fileID: 3639772481724691832}
+  m_Layer: 11
+  m_Name: rockPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6523050166798948954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4380656257442133366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8939974835675079927}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3639772481724691832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4380656257442133366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f5f39952530b4489c689faa05de558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjPrefab: {fileID: 176517197432630699, guid: 869f26b158f42c34695c4d4998bec667,
+    type: 3}
+  poolQuan: 5
 --- !u!1 &4809267909722596485
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +772,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &6573492003459430279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7660877380046390133}
+  - component: {fileID: 9167651907682555510}
+  m_Layer: 11
+  m_Name: missileAPooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7660877380046390133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6573492003459430279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8939974835675079927}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9167651907682555510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6573492003459430279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f5f39952530b4489c689faa05de558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjPrefab: {fileID: 2912268860614299081, guid: a39724fb02913db4284882a4b606eb6f,
+    type: 3}
+  poolQuan: 5
 --- !u!1 &7815317520254481431
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +855,9 @@ Transform:
   - {fileID: 193369514467525417}
   - {fileID: 8350570710162117268}
   - {fileID: 7688819401949287604}
+  - {fileID: 6523050166798948954}
+  - {fileID: 7660877380046390133}
+  - {fileID: 388109560319064456}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -784,9 +925,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 3
-  maxHealth: 500
-  curHealth: 500
-  reactforce: 0
+  maxHealth: 300
+  curHealth: 300
   score: 1000
   coins:
   - {fileID: 1402336945109969538, guid: a778b2a9dbf73b34c9f116acd57e3d1f, type: 3}
@@ -795,8 +935,6 @@ MonoBehaviour:
   coinSize: 3
   target: {fileID: 0}
   manager: {fileID: 0}
-  isChase: 0
-  isAttack: 0
   isDead: 0
   deathEvent:
     m_PersistentCalls:
@@ -805,6 +943,8 @@ MonoBehaviour:
   bullet: {fileID: 176517197432630699, guid: 869f26b158f42c34695c4d4998bec667, type: 3}
   TargetDetectRadius: 0
   TargetDetectRange: 0
+  chaseDetectRadius: 0
+  chaseDetectRange: 0
   attackDelay: 0
   attackafterDelay: 0
   DamageTime: 0
@@ -815,7 +955,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   damagedSound: {fileID: 5089439994483134365}
   attackSound: {fileID: 7635219459125738039}
-  missile: {fileID: 2912268860614299081, guid: a39724fb02913db4284882a4b606eb6f, type: 3}
+  objectPooler: {fileID: 3639772481724691832}
+  missile: {fileID: 0}
   missilePortA: {fileID: 193369514669638174}
   missilePortB: {fileID: 193369516120651014}
   rockTrans: {fileID: 8350570710162117268}
@@ -823,6 +964,8 @@ MonoBehaviour:
   rockSound: {fileID: 403135671809143483}
   missileSound: {fileID: 7635219459125738039}
   tauntSound: {fileID: 833170599453274900}
+  missilePoolA: {fileID: 9167651907682555510}
+  missilePoolB: {fileID: 4170244423312250534}
   isLook: 1
 --- !u!1 &8171585561128576850
 GameObject:

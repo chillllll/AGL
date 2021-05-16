@@ -2669,6 +2669,7 @@ MonoBehaviour:
   enemyCntCTxt: {fileID: 226499983}
   bossHealthGruop: {fileID: 1693296815}
   bossHealthBar: {fileID: 35745289}
+  targetFrame: 60
 --- !u!4 &255445079
 Transform:
   m_ObjectHideFlags: 0

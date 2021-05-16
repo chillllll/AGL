@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
     public float jumpHeight; 
     public GameObject[] weapons; //무기들
     public bool[] hasWeapon; //무기 보유 여부
-    public GameObject[] grenade;
+    //public GameObject[] grenade;
     public int hasGrenades; //가진 수류탄 갯수
+    public ObjectPooler grenadePool;
     public GameObject GrenadeObj;
     public int sateliteQuantity;
     public Transform faceDirection; //보는 방향
@@ -82,8 +83,8 @@ public class Player : MonoBehaviour
     [Tooltip("타겟 트랜스폼")]
     Transform targetTransform=null;
 
-   
 
+    public Vector3 hitVec;
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -92,7 +93,7 @@ public class Player : MonoBehaviour
         InvokeRepeating("SearchEnemy", 0f, 0.5f);
         //PlayerPrefs.SetInt("MaxScore", 0);
         //Debug.Log(PlayerPrefs.GetInt("MaxScore"));
-
+        
     }
     //회전방지
     void FreezeRotation()
@@ -113,6 +114,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Attack();
         //getInput();
         Move();
         Turn();
@@ -120,10 +122,9 @@ public class Player : MonoBehaviour
         Dodge();
         Interaction();
         Swap();
-        Attack();
         Reload();
         Grenade();
-
+       
     }
 
     //인풋받기-모바일 사용안함
@@ -164,7 +165,7 @@ public class Player : MonoBehaviour
 
 
         anim.SetBool("isRun", moveVec != Vector3.zero);
-        anim.SetBool("isWalk", wDown);
+        //anim.SetBool("isWalk", wDown);
     }
     /// <summary>
     //회전
@@ -186,8 +187,10 @@ public class Player : MonoBehaviour
     //가까운 적 찾기
     void SearchEnemy()
     {
-        Collider[] targetCollider = Physics.OverlapSphere(transform.position, targetRange, targetLayer); //구체형 레이캐스트로 적레이어 검출
+        
+        Collider[] targetCollider = Physics.OverlapSphere(transform.position, targetRange, targetLayer); //지정한 위치로 부터 지정한 범위안에 접촉한 콜라이더 배열로 반환 (접촉 또는 범위안의 것들)
         Transform nearTarget = null;
+
 
         if (targetCollider.Length > 0) //가장 가까운 적 타겟팅
         {
@@ -195,7 +198,7 @@ public class Player : MonoBehaviour
             foreach (Collider colTarget in targetCollider) //레이캐스트에 감지된 적들 중 가장 가까운 적 타겟팅
             {
                 float targetDistance = Vector3.SqrMagnitude(transform.position - colTarget.transform.position); //타겟과의 거리 계산
-                if (nearDistance > targetDistance)
+                if (nearDistance > targetDistance) 
                 {
                     nearDistance = targetDistance;
                     nearTarget = colTarget.transform;
@@ -240,7 +243,7 @@ public class Player : MonoBehaviour
             
             Vector3 grenadeVec = faceDirection.position - transform.position; //플레이어가 보는 방향
 
-            GameObject instantGrenade = Instantiate(GrenadeObj, transform.position, transform.rotation);
+            GameObject instantGrenade = Instantiate(GrenadeObj, transform.position, transform.rotation);          
             Rigidbody rigidGrenade = instantGrenade.GetComponent<Rigidbody>();
             rigidGrenade.AddForce(grenadeVec, ForceMode.Impulse);
             rigidGrenade.AddTorque(Vector3.back * 10, ForceMode.Impulse);
@@ -497,12 +500,17 @@ public class Player : MonoBehaviour
             if (!isDamaged)
             {
                 health -= enemyBullet.damage;
-                Vector3 hitVec = transform.position - other.transform.position;
-                hitVec = hitVec.normalized;
-
+                hitVec = transform.position - other.transform.position;
+                Vector3 hitVec2 = hitVec.normalized;
+                float hitVecX = hitVec2.x;
+                float hitVecZ = hitVec2.z;
+                int hitback = enemyBullet.KnockbackForce;
+                float hitbackX = hitVecX * hitback;
+                float hitbackZ = hitVecZ * hitback;
+                
                 bool isBossAtk = other.name == "BossMeleeArea";
+                rigid.AddForce(hitbackX,0,hitbackZ, ForceMode.Impulse); //피격시 적 공격의 넉백수치만큼 플레이어 넉백
 
-                rigid.AddForce(hitVec * enemyBullet.KnockbackForce, ForceMode.Impulse); //피격시 적 공격의 넉백수치만큼 플레이어 넉백
                 StartCoroutine(OnDamage(isBossAtk));
             }
         }
@@ -517,9 +525,14 @@ public class Player : MonoBehaviour
         }
         if (health <= 0 && !isDead) //체력이 0이하일 때
             OnDie();
-        yield return new WaitForSeconds(invulnerableTime);
+        
         if (isBossAtk)
-            rigid.velocity = Vector3.zero;
+            rigid.AddForce(transform.forward * -25, ForceMode.Impulse);
+       
+            
+        yield return new WaitForSeconds(invulnerableTime);
+        rigid.velocity = Vector3.zero;
+
         isBossAtk = false;
         isDamaged = false;
         foreach (MeshRenderer mesh in meshs)

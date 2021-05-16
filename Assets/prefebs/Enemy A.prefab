@@ -414,8 +414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 0
-  maxHealth: 100
-  curHealth: 100
+  maxHealth: 50
+  curHealth: 50
   reactforce: 2
   score: 100
   coins:
@@ -431,9 +431,9 @@ MonoBehaviour:
       m_Calls: []
   meleeArea: {fileID: 8824209415737276445}
   bullet: {fileID: 0}
-  TargetDetectRadius: 1.5
+  TargetDetectRadius: 1.3
   TargetDetectRange: 3
-  chaseDetectRadius: 10
+  chaseDetectRadius: 20
   chaseDetectRange: 20
   attackDelay: 0.5
   attackafterDelay: 0

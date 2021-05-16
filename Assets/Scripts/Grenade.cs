@@ -12,7 +12,8 @@ public class Grenade : MonoBehaviour
     public float exRadius; //폭발범위
     //public int damage;
     public GameObject exColider; //폭발데미지를 줄 콜라이더
-    public float destroytime; 
+    public float destroytime;
+    public AudioSource sound;
 
     
     // Start is called before the first frame update
@@ -31,8 +32,12 @@ public class Grenade : MonoBehaviour
         meshObj.SetActive(false);
         effctObj.SetActive(true);
         exColider.SetActive(true);
-
+        sound.Play();
         Destroy(gameObject, destroytime);
         
     }
+
+
+
+   
 }

@@ -2,26 +2,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
     public int damage;
     public float KnockbackForce;
     public float destroyTime;
-
+    
 
     private void Awake()
     {
-        Destroy(gameObject, destroyTime);
+       
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "floor") //¹Ù´Ú¿¡ ´êÀ» ¶§
-        {
-            Destroy(gameObject);
+        {           
+            gameObject.SetActive(false);
         }
 
         if (collision.gameObject.tag == "Wall") //º®¿¡ ´êÀ» ¶§
-        {
-            Destroy(gameObject);
+        {            
+            gameObject.SetActive(false);
         }
     }
 
@@ -29,7 +28,24 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Destroy(gameObject,0.05f);
+            Invoke("deActive", 0.05f);
         }
+    }
+
+    void deActive()
+    {
+        gameObject.SetActive(false);
+        
+        
+    }
+ 
+    private void OnEnable()
+    {      
+        Invoke("deActive", destroyTime);
+
+    }
+    private void OnDisable()
+    {     
+        CancelInvoke();
     }
 }

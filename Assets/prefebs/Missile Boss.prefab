@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829214337543153702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.02}
+  m_LocalPosition: {x: 0, y: 4, z: 2.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2531486665955383155}
@@ -4845,7 +4845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2912268860614299081}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.44834, y: 3.23, z: 14.999987}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 616021885132869952}
@@ -4894,7 +4894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5b1340fd65d8e45a6d4935c08fa106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 15
   KnockbackForce: 10
 --- !u!114 &1829214337888186934
 MonoBehaviour:
@@ -4910,7 +4910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   KnockbackForce: 0
-  destroyTime: 0
+  destroyTime: 3
   target: {fileID: 0}
 --- !u!114 &1829214337888186937
 MonoBehaviour:
@@ -4947,7 +4947,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1 &5471863816889001624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4974,7 +4974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5471863816889001624}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 4, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2531486665955383155}
